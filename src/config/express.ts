@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import constants from '../utils/constants';
 import logger from '../config/logger';
-// import apiV1Routes from '../routes/v1';
+import apiV1Routes from '../routes/v1';
 import Helper from '../utils/helpers/helpers';
 import NotFoundError from '../utils/errors/notFoundError';
 
@@ -33,7 +33,7 @@ app.get('/', (req: Request, res: Response) => {
   res.json({ message: WELCOME });
 });
 
-// app.use(v1, apiV1Routes);
+app.use(v1, apiV1Routes);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => next(new NotFoundError('Route')));
