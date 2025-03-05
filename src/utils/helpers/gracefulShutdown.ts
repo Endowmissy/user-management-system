@@ -7,20 +7,18 @@ export const handleGracefulShutdown = (server: Server) => {
     logger.info(`Received ${signal}. Starting graceful shutdown...`);
 
     try {
-      server.close(() => {
-        logger.info("✅ Server stopped accepting new connections.");
+      await new Promise<void>((resolve, reject) => {
+        server.close((err) => (err ? reject(err) : resolve()));
       });
+      logger.info("✅ Server stopped accepting new connections.");
 
       // Close database connections
-      await db.destroy();
+      const connection = await db.client.acquireConnection();
+      await db.client.releaseConnection(connection);
       logger.info("✅ Database connection closed.");
- 
-      // Perform cleanup tasks
-      await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulating cleanup
-      logger.info("✅ Completed cleanup tasks.");
 
       // Exit process successfully
-      logger.info("🚀 Shutdown complete. Exiting process.");
+      logger.info("🚀 Shutdown completed.");
       process.exit(0);
     } catch (err) {
       logger.error("❌ Error during shutdown:", err);
@@ -32,5 +30,4 @@ export const handleGracefulShutdown = (server: Server) => {
   ["SIGINT", "SIGTERM"].forEach((signal) => {
     process.on(signal, () => shutdown(signal));
   });
-  
-}
+};
