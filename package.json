@@ -9,7 +9,7 @@
     "build": "tsc -p .",
     "knex": "./node_modules/.bin/knex --knexfile src/database/knexfile.ts",
     "prestart": "npm run build",
-    "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/index.js",
+    "start": "node -r ts-node/register/transpile-only ./dist/index.js",
     "migration": "npx knex migrate:latest --knexfile=src/database/knexfile.ts",
     "migration:rollback": "npx knex migrate:rollback --knexfile src/database/knexfile.ts",
     "seed:db": "knex seed:run",
