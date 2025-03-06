@@ -23,7 +23,7 @@ module.exports = {
   test: {
     client: "sqlite3",
     connection: {
-      filename: "./test.sqlite3"
+      filename: path.resolve(__dirname,"./test.sqlite3")
     },
     useNullAsDefault: true,
     migrations: {
@@ -37,7 +37,7 @@ module.exports = {
   production: {
     client: "sqlite3",
     connection: {
-      filename: "./prod.sqlite3"
+      filename: path.resolve(__dirname, "./prod.sqlite3")
     },
     useNullAsDefault: true,
     migrations: {
