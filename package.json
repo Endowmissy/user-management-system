@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "lint": "tslint -p tsconfig.json",
-    "build": "tsc && npx knex migrate:latest --knexfile dist/database/knexfile.js",
+    "build": "tsc",
     "prestart": "npm run build",
     "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/index.js",
     "migration": "npx knex migrate:latest --knexfile=src/database/knexfile.ts",
