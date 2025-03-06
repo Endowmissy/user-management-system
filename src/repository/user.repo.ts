@@ -4,45 +4,47 @@ import { UserModelInterface } from "../interface/user.interface";
 export class UserRepository {
   /**
    * Creates a new user
-   * @param table
    * @param data
    * @returns
    */
-  public static async createUser(
-    table: string,
-    data: object
-  ): Promise<UserModelInterface> {
-    return await db(table).insert(data);
+  public static async createUser(data: object): Promise<UserModelInterface> {
+    return await db("users").insert(data);
   }
 
   /**
    * Return a specific user
-   * @param table the table to query
-   * @param row the row to query
-   * @param value the value to query by
+   * @param userId
    * @returns
    */
-  public static async getOneUser(
-    table: string,
-    row: string,
-    value: any
-  ) {
-    return await db(table).where(row, value).first();
+
+  public static async getOneUser(userId: string): Promise<UserModelInterface> {
+    return await db("users")
+      .join("addresses", "users.id", "addresses.user_id")
+      .where("users.id", userId)
+      .select("users.*", "addresses.*")
+      .first();
+  }
+
+  public static async getUserByEmail(
+    email: string
+  ): Promise<UserModelInterface> {
+    return await db("users").where("users.email", email).first();
   }
 
   /**
    * Returns paginated list of users
-   * @param table table to query
+   * @param limit
+   * @param offset
+   * @param order
    * @returns
    */
 
   public static async getAllUsers(
-    table: string,
     limit: number,
     offset: number,
     order: string = "desc"
   ): Promise<any> {
-    return await db(table)
+    return await db("users")
       .select("*")
       .limit(limit)
       .offset(offset)
@@ -51,11 +53,12 @@ export class UserRepository {
 
   /**
    * Returns total number of users
-   * @param table table to query
    * @returns
    */
 
-  public static async getAllUsersCount(table: string): Promise<any> {
-    return await db(table).count<Record<string, number>>("* as count").first();
+  public static async getAllUsersCount(): Promise<any> {
+    return await db("users")
+      .count<Record<string, number>>("* as count")
+      .first();
   }
 }
