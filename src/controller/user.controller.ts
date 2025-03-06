@@ -27,7 +27,7 @@ export default class UserController {
   public static async getOneUser(req: Request, res: Response): Promise<any> {
     try {
       logger.info(`::: Fetching user`);
-      const data = await UserService.getOneUser(req.params);
+      const data = await UserService.getOneUser(req.params.id);
       logger.info(`::: User fetched successfully`);
       return successResponse(res, "User fetched successfully", 201, data);
     } catch (error) {
