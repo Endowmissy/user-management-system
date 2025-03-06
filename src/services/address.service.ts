@@ -1,4 +1,5 @@
 import logger from "../config/logger";
+import { v4 as uuidv4 } from "uuid";
 import NotFoundError from "../utils/errors/notFoundError";
 import {
   AddressModelInterface,
@@ -22,7 +23,7 @@ export default class AddressService {
     }
     // create address
     const address: AddressModelInterface =
-      await AddressRepository.createAddress(body);
+      await AddressRepository.createAddress({ id: uuidv4(), ...body });
     return address;
   }
 

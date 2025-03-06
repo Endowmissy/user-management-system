@@ -1,5 +1,5 @@
 export interface AddressModelInterface {
-    id: number;
+    id: string;
     user_id: string;
     street: string;
     city: string;

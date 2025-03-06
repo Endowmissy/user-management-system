@@ -29,7 +29,7 @@ export default class UserController {
       logger.info(`::: Fetching user`);
       const data = await UserService.getOneUser(req.params.id);
       logger.info(`::: User fetched successfully`);
-      return successResponse(res, "User fetched successfully", 201, data);
+      return successResponse(res, "User fetched successfully", 200, data);
     } catch (error) {
       logger.info(`::: Failed to fetch user`, error);
       return errorResponse(req, res, error);
@@ -41,7 +41,7 @@ export default class UserController {
       logger.info(`::: Fetching all users`);
       const data = await UserService.getAllUsers(req.body);
       logger.info(`::: All Users fetched successfully`);
-      return successResponse(res, "All Users fetched successfully", 201, data);
+      return successResponse(res, "All Users fetched successfully", 200, data);
     } catch (error) {
       logger.info(`::: Failed to fetch all users`, error);
       return errorResponse(req, res, error);
@@ -56,7 +56,7 @@ export default class UserController {
       return successResponse(
         res,
         "Total number of users fetched successfully",
-        201,
+        200,
         data
       );
     } catch (error) {
