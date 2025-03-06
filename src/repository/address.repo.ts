@@ -16,7 +16,7 @@ export class AddressRepository {
    * @param user_id
    * @returns
    */
-  public static async getAddressByUserId(user_id: number) {
+  public static async getAddressByUserId(user_id: string) {
     return await db("addresses").where({ user_id }).first();
   }
 
@@ -27,7 +27,7 @@ export class AddressRepository {
    * @returns
    */
 
-  public static async updateAddress(user_id: number, address: UpdateAdressInterface) {
+  public static async updateAddress(user_id: string, address: UpdateAdressInterface) {
     return await db("addresses").where({ user_id }).update(address).returning("*");
   }
 }

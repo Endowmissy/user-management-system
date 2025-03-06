@@ -29,7 +29,7 @@ export default class AddressController {
       logger.info(`::: Fetching user address`);
       const data = await AddressService.getUserAddress(req.params.userID);
       logger.info(`::: User Address fetched successfully`);
-      return successResponse(res, "User Address fetched successfully", 201, data);
+      return successResponse(res, "User Address fetched successfully", 200, data);
     } catch (error) {
       logger.info(`::: Failed to fetch user address`, error);
       return errorResponse(req, res, error);
@@ -41,7 +41,7 @@ export default class AddressController {
       logger.info(`::: Updating user address`);
       const data = await AddressService.updateUserAddress(req.params.userID,req.body);
       logger.info(`::: User address updated successfully`);
-      return successResponse(res, "User address updated successfully", 201, data);
+      return successResponse(res, "User address updated successfully", 200, data);
     } catch (error) {
       logger.info(`::: Failed to update user address`, error);
       return errorResponse(req, res, error);

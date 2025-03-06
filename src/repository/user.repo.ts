@@ -25,10 +25,8 @@ export class UserRepository {
       .first();
   }
 
-  public static async getUserByEmail(
-    email: string
-  ): Promise<UserModelInterface> {
-    return await db("users").where("users.email", email).first();
+  public static async getUserBy(row, value): Promise<UserModelInterface> {
+    return await db("users").where(row, value).first();
   }
 
   /**

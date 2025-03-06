@@ -9,14 +9,15 @@ import {
 import { UserRepository } from "../repository/user.repo";
 import Helper from "../utils/helpers/helpers";
 const { preparePagination, getTotalPages } = Helper;
+import { v4 as uuidv4 } from "uuid";
 
 export default class UserService {
   public static async findUserByEmail(email: string): Promise<UserModelInterface> {
-    return await UserRepository.getUserByEmail(email);
+    return await UserRepository.getUserBy("email", email);
   }
 
   public static async findUserById(id: string): Promise<UserModelInterface> {
-    return await UserRepository.getOneUser(id);
+    return await UserRepository.getUserBy("id", id);
 }
 
   public static async createNewUser(body: CreateUserInterface): Promise<any> {
@@ -29,6 +30,7 @@ export default class UserService {
     }
     // create user
     const user = await UserRepository.createUser({
+      id: uuidv4(),
       first_name,
       last_name,
       email,
@@ -44,7 +46,8 @@ export default class UserService {
       logger.info("User not found");
       throw new NotFoundError("User not found");
     }
-    return user;
+    const userDetails = await UserRepository.getOneUser(id);
+    return userDetails;
   }
 
   public static async getAllUsers(pagination: Pagination): Promise<any> {
