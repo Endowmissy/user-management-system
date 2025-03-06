@@ -18,6 +18,7 @@
       "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
       "esModuleInterop": true, 
       "allowSyntheticDefaultImports": true,
+      "types": ["node"]
     },
     "include": [
       "src/**/*"
