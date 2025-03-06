@@ -54,6 +54,7 @@ web_modules/
 
 ## sqlite file
 src/database/dev.sqlite3
+dist
 
 # Knex migration lock file
 knexfile.lock
